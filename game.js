@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         resultP.textContent = '';
         hitButton.style.display = 'inline-block';
         standButton.style.display = 'inline-block';
-        startButton.disabled = true;
+        startButton.style.display = 'none'; // Hide the start button
     }
 
     function hit() {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultP.textContent = 'Player busts!';
             hitButton.style.display = 'none';
             standButton.style.display = 'none';
-            startButton.disabled = false; // Re-enable the start button
+            startButton.style.display = 'inline-block'; // Show start button for replay
         }
         updateDisplay();
     }
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         resultP.textContent = result;
         hitButton.style.display = 'none';
         standButton.style.display = 'none';
-        startButton.disabled = false; // Re-enable the start button
+        startButton.style.display = 'inline-block'; // Show start button for replay
         updateDisplay();
     }
 
@@ -79,8 +79,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function drawCard(isPlayer) {
+        if (deck.length === 0) return; // Prevent drawing from an empty deck
         const card = deck.pop();
         const cardValue = getCardValue(card);
+        if (cardValue === undefined) {
+            console.error(`Invalid card value for card: ${card}`);
+            return;
+        }
         if (isPlayer) {
             playerCards.push(card);
             playerTotal += cardValue;
@@ -94,6 +99,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         switch (card.charAt(0)) {
             case 'A': return 11;
             case 'K': case 'Q': case 'J': return 10;
+            case 'T': return 10;
             default: return parseInt(card.charAt(0), 10);
         }
     }

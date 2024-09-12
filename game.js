@@ -104,6 +104,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+    function getCardImage(card) {
+        const rank = card.charAt(0);
+        const suit = card.charAt(1);
+        // Determine the correct image filename based on card value and suit
+        if (['K', 'Q', 'J'].includes(rank)) {
+            return `${rank.toLowerCase()}_of_${getSuitName(suit)}2.png`;
+        } else {
+            return `${getRankName(rank)}_of_${getSuitName(suit)}.png`;
+        }
+    }
+
+    function getRankName(rank) {
+        const rankNames = {
+            'A': 'ace', 'K': 'king', 'Q': 'queen', 'J': 'jack',
+            'T': '10', '9': '9', '8': '8', '7': '7', '6': '6',
+            '5': '5', '4': '4', '3': '3', '2': '2'
+        };
+        return rankNames[rank] || rank;
+    }
+
+    function getSuitName(suit) {
+        const suitNames = {
+            'H': 'hearts', 'D': 'diamonds', 'C': 'clubs', 'S': 'spades'
+        };
+        return suitNames[suit] || suit;
+    }
+
+    function updateDisplay() {
+        playerCardsDiv.innerHTML = playerCards.map(card => `<img src="${getCardImage(card)}" alt="${getCardName(card)}" style="width: 100px; height: auto;">`).join(' ');
+        playerTotalP.textContent = `Total: ${playerTotal}`;
+        computerCardsDiv.innerHTML = computerCards.map(card => `<img src="${getCardImage(card)}" alt="${getCardName(card)}" style="width: 100px; height: auto;">`).join(' ');
+        computerTotalP.textContent = `Total: ${computerTotal}`;
+    }
+
     function getCardName(card) {
         const rankNames = {
             'A': 'Ace', 'K': 'King', 'Q': 'Queen', 'J': 'Jack',
@@ -117,12 +151,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let rank = card.charAt(0);
         let suit = card.charAt(1);
         return `${rankNames[rank]} of ${suitNames[suit]}`;
-    }
-
-    function updateDisplay() {
-        playerCardsDiv.innerHTML = playerCards.map(getCardName).join(', ');
-        playerTotalP.textContent = `Total: ${playerTotal}`;
-        computerCardsDiv.innerHTML = computerCards.map(getCardName).join(', ');
-        computerTotalP.textContent = `Total: ${computerTotal}`;
     }
 });

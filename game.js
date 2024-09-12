@@ -108,11 +108,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const rank = card.charAt(0);
         const suit = card.charAt(1);
         // Determine the correct image filename based on card value and suit
-        if (['K', 'Q', 'J'].includes(rank)) {
-            return `${getRankName(rank)}_of_${getSuitName(suit)}2.png`;
-        } else {
-            return `${getRankName(rank)}_of_${getSuitName(suit)}.png`;
-        }
+        return `${getRankName(rank)}_of_${getSuitName(suit)}.png`;
     }
 
     function getRankName(rank) {

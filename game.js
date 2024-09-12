@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultP.textContent = 'Player busts!';
             hitButton.style.display = 'none';
             standButton.style.display = 'none';
+            startButton.disabled = false; // Re-enable the start button
         }
         updateDisplay();
     }
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         resultP.textContent = result;
         hitButton.style.display = 'none';
         standButton.style.display = 'none';
+        startButton.disabled = false; // Re-enable the start button
         updateDisplay();
     }
 
@@ -96,10 +98,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+    function getCardName(card) {
+        const rankNames = {
+            'A': 'Ace', 'K': 'King', 'Q': 'Queen', 'J': 'Jack',
+            'T': '10', '9': '9', '8': '8', '7': '7', '6': '6',
+            '5': '5', '4': '4', '3': '3', '2': '2'
+        };
+        const suitNames = {
+            'H': 'Hearts', 'D': 'Diamonds', 'C': 'Clubs', 'S': 'Spades'
+        };
+        
+        let rank = card.charAt(0);
+        let suit = card.charAt(1);
+        return `${rankNames[rank]} of ${suitNames[suit]}`;
+    }
+
     function updateDisplay() {
-        playerCardsDiv.innerHTML = playerCards.join(' ');
+        playerCardsDiv.innerHTML = playerCards.map(getCardName).join(', ');
         playerTotalP.textContent = `Total: ${playerTotal}`;
-        computerCardsDiv.innerHTML = computerCards.join(' ');
+        computerCardsDiv.innerHTML = computerCards.map(getCardName).join(', ');
         computerTotalP.textContent = `Total: ${computerTotal}`;
     }
 });

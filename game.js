@@ -128,9 +128,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function updateDisplay() {
-        playerCardsDiv.innerHTML = playerCards.map(card => `<img src="${getCardImage(card)}" alt="${getCardName(card)}" style="width: 100px; height: auto;">`).join(' ');
+        playerCardsDiv.innerHTML = playerCards.map(card => `<img src="./assets/${getCardImage(card)}" alt="${getCardName(card)}" style="width: 100px; height: auto;">`).join(' ');
         playerTotalP.textContent = `Total: ${playerTotal}`;
-        computerCardsDiv.innerHTML = computerCards.map(card => `<img src="${getCardImage(card)}" alt="${getCardName(card)}" style="width: 100px; height: auto;">`).join(' ');
+        computerCardsDiv.innerHTML = computerCards.map(card => `<img src="./assets/${getCardImage(card)}" alt="${getCardName(card)}" style="width: 100px; height: auto;">`).join(' ');
         computerTotalP.textContent = `Total: ${computerTotal}`;
     }
 

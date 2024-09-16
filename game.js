@@ -12,11 +12,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const computerCardsDiv = document.getElementById('computer-cards');
     const computerTotalP = document.getElementById('computer-total');
     const resultP = document.getElementById('result');
+    
+    // Modal elements
+    const resultModal = document.getElementById('result-modal');
+    const modalMessage = document.getElementById('modal-message');
+    const modalClose = document.getElementById('modal-close');
 
     // Event listeners
     startButton.addEventListener('click', startGame);
     hitButton.addEventListener('click', hit);
     standButton.addEventListener('click', stand);
+    modalClose.addEventListener('click', () => {
+        resultModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === resultModal) {
+            resultModal.style.display = 'none';
+        }
+    });
+
+    function showModal(message) {
+        console.log(`Showing modal with message: ${message}`); // Debug log
+        modalMessage.textContent = message;
+        resultModal.style.display = 'block';
+    }
 
     function startGame() {
         deck = createDeck();
@@ -39,7 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function hit() {
         drawCard(true); // Player
         if (playerTotal > 21) {
-            resultP.textContent = 'Player busts!';
+            showModal('Player busts!');
             hitButton.style.display = 'none';
             standButton.style.display = 'none';
             startButton.style.display = 'inline-block'; // Show start button for replay
@@ -61,7 +81,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             result = 'It\'s a tie!';
         }
-        resultP.textContent = result;
+        showModal(result);
         hitButton.style.display = 'none';
         standButton.style.display = 'none';
         startButton.style.display = 'inline-block'; // Show start button for replay

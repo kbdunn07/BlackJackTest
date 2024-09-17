@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let deck, playerCards, computerCards, playerTotal, computerTotal;
 
     // Get DOM elements
+    var cont = document.querySelector('.container');
     const startButton = document.getElementById('start-button');
     const hitButton = document.getElementById('hit-button');
     const standButton = document.getElementById('stand-button');
@@ -23,7 +24,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     hitButton.addEventListener('click', hit);
     standButton.addEventListener('click', stand);
     modalClose.addEventListener('click', () => {
-        resultModal.style.display = 'none';
+        resultModal.style.display = 'none'; 
+        cont.style.opacity = 1;
     });
 
     window.addEventListener('click', (event) => {
@@ -36,6 +38,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.log(`Showing modal with message: ${message}`); // Debug log
         modalMessage.textContent = message;
         resultModal.style.display = 'block';
+        cont.style.opacity = 0.5;
     }
 
     function startGame() {
